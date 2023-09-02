@@ -11,6 +11,10 @@ import (
 type UserRepositoryImpl struct {
 }
 
+func NewUserRepository() UserRepository {
+	return &UserRepositoryImpl{}
+}
+
 func (repository *UserRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, user domain.User) domain.User {
 	sql := "INSERT INTO user (name, email, password, role_id) VALUES (?, ?, ?, ?)"
 	result, err := tx.ExecContext(ctx, sql, user.Name, user.Email, user.Password, user.RoleId)
@@ -39,7 +43,7 @@ func (repository *UserRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, us
 }
 
 func (repository *UserRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, userId int64) (domain.User, error) {
-	sql := "SELECT id, name, email, password, role_id WHERE id = ?"
+	sql := "SELECT id, name, email, password, role_id FROM user WHERE id = ?"
 	rows, err := tx.QueryContext(ctx, sql, userId)
 	helper.PanicIfError(err)
 	defer rows.Close()

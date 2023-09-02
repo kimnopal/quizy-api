@@ -15,9 +15,15 @@ type UserControllerImpl struct {
 	service user_service.UserService
 }
 
+func NewUserController(service user_service.UserService) UserController {
+	return &UserControllerImpl{
+		service: service,
+	}
+}
+
 func (controller *UserControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	userCreateRequest := user_dto.UserCreateRequest{}
-	helper.ReadFromRequestBody(request, userCreateRequest)
+	helper.ReadFromRequestBody(request, &userCreateRequest)
 
 	userResponse := controller.service.Create(request.Context(), userCreateRequest)
 

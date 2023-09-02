@@ -4,9 +4,12 @@ import (
 	"net/http"
 	"quizy-api/app"
 	"quizy-api/controller"
+	"quizy-api/controller/user_controller"
 	"quizy-api/helper"
 	repository "quizy-api/repository/role_repository"
+	"quizy-api/repository/user_repository"
 	service "quizy-api/service/role_service"
+	"quizy-api/service/user_service"
 
 	"github.com/go-playground/validator/v10"
 	_ "github.com/go-sql-driver/mysql"
@@ -20,11 +23,19 @@ func main() {
 	roleService := service.NewRoleService(db, roleRepository, validate)
 	roleController := controller.NewServiceController(roleService)
 
+	userRepository := user_repository.NewUserRepository()
+	userService := user_service.NewUserService(db, userRepository, validate)
+	userController := user_controller.NewUserController(userService)
+
 	router := httprouter.New()
 
 	router.POST("/api/v1/role", roleController.Create)
 	router.PUT("/api/v1/role/:roleId", roleController.Update)
 	router.DELETE("/api/v1/role/:roleId", roleController.Delete)
+
+	router.POST("/api/v1/user", userController.Create)
+	router.PUT("/api/v1/user/:userId", userController.Update)
+	router.DELETE("/api/v1/user/:userId", userController.Delete)
 
 	router.PanicHandler = controller.ErrorHandler
 

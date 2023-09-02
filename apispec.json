@@ -1,0 +1,808 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Quizy RESTful API",
+        "description": "API Specification for Quizy RESTful API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:8000/api/v1"
+        }
+    ],
+    "paths": {
+        "/quiz": {
+            "get": {
+                "description": "List all quiz",
+                "summary": "List all quiz",
+                "tags": [
+                    "Quiz API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get all quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success get all quiz"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Quiz"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new quiz",
+                "summary": "Create a new quiz",
+                "tags": [
+                    "Quiz API"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateQuizRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success create quiz"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Quiz"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/quiz/{quizCode}": {
+            "get": {
+                "description": "Get quiz by quiz code",
+                "summary": "Get quiz by quiz code",
+                "tags": [
+                    "Quiz API"
+                ],
+                "parameters": [
+                    {
+                        "name": "quizCode",
+                        "in": "path",
+                        "description": "Quiz code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success get quiz"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/GetSpecificQuiz"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update quiz by quiz code",
+                "summary": "Updated quiz by quiz code",
+                "tags": [
+                    "Quiz API"
+                ],
+                "parameters": [
+                    {
+                        "name": "quizCode",
+                        "in": "path",
+                        "description": "Quiz code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateQuizRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success update quiz"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Quiz"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete quiz by quiz code",
+                "summary": "Delete quiz by quiz code",
+                "tags": [
+                    "Quiz API"
+                ],
+                "parameters": [
+                    {
+                        "name": "quizCode",
+                        "in": "path",
+                        "description": "Quiz code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success delete quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success delete quiz"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/questions": {
+            "post": {
+                "description": "Create a new question",
+                "summary": "Create a new question",
+                "tags": [
+                    "Question API"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateQuestionRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create question",
+                        "content": {
+                            "appplication/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success create question"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Question"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/question/{questionId}": {
+            "put": {
+                "description": "Update question by question id",
+                "summary": "Update question by question id",
+                "tags": [
+                    "Question API"
+                ],
+                "parameters": [
+                    {
+                        "name": "questionId",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateQuestionRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update question",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success update question"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Question"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete question by question id",
+                "summary": "Delete question by question id",
+                "tags": [
+                    "Question API"
+                ],
+                "parameters": [
+                    {
+                        "name": "questionId",
+                        "in": "path",
+                        "description": "Question id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success delete question",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success delete question"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/choice": {
+            "post": {
+                "description": "Create a new choice",
+                "summary": "Create a new choice",
+                "tags": [
+                    "Choice API"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateChoiceRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success create choice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success create choice"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Choice"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/choice/{choiceId}": {
+            "put": {
+                "description": "Update choice by choice id",
+                "summary": "Update choice by choice id",
+                "tags": [
+                    "Choice API"
+                ],
+                "parameters": [
+                    {
+                        "name": "choiceId",
+                        "in": "path",
+                        "description": "Choice id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateOrUpdateChoiceRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success update choice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "text": {
+                                            "type": "string",
+                                            "example": "success update choice"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Choice"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete choice by choice id",
+                "summary": "Delete choice by choice id",
+                "tags": [
+                    "Choice API"
+                ],
+                "parameters": [
+                    {
+                        "name": "choiceId",
+                        "in": "path",
+                        "description": "Choice id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success delete choice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success delete choice"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/submission": {
+            "get": {
+                "description": "List all submissions",
+                "summary": "List all submissions",
+                "tags": [
+                    "Submission API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success get all quiz",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "number",
+                                            "example": 200
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success get all submission"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Submission"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new submission",
+                "summary": "Create a new submission",
+                "tags": [
+                    "Submission API"
+                ],
+                "responses": {}
+            }
+        },
+        "/submission/{submissionCode}": {
+            "get": {
+                "description": "Get submission by submission code",
+                "summary": "Get submission by submission code",
+                "tags": [
+                    "Submission API"
+                ],
+                "responses": {}
+            }
+        },
+        "/answer": {
+            "post": {
+                "description": "Create a new answer",
+                "summary": "Create a new answer",
+                "tags": [
+                    "Answer API"
+                ],
+                "responses": {}
+            }
+        },
+        "/asnwer/{answerid}": {
+            "put": {
+                "description": "Update answer by answer id",
+                "summary": "Update answer by answer id",
+                "tags": [
+                    "Answer API"
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Quiz": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "invitation_code": {
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "title": "Quiz Dadakan",
+                    "description": "Jangan lupa berdoa",
+                    "code": "aS2kj97Krt35aS3",
+                    "invitation_code": "quizdadakan123",
+                    "isActive": true
+                }
+            },
+            "GetSpecificQuiz": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "invitation_code": {
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "choices": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "number"
+                                            },
+                                            "text": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "title": "Quiz Dadakan",
+                    "description": "Jangan lupa berdoa",
+                    "code": "aS2kj97Krt35aS3",
+                    "invitation_code": "quizdadakan123",
+                    "isActive": true,
+                    "questions": [
+                        {
+                            "id": 1,
+                            "text": "Apakah ini dapat di itukan?",
+                            "choices": [
+                                {
+                                    "id": 1,
+                                    "text": "Pilihan A"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "CreateOrUpdateQuizRequestBody": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "invitation_code": {
+                        "type": "string"
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "title": "Quiz Dadakan",
+                    "description": "Jangan lupa berdoa",
+                    "invitation_code": "quizdadakan123",
+                    "isActive": true
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Question": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "quiz_id": {
+                        "type": "number"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "text": "Apakah ini dapat di itukan?",
+                    "quiz_id": 1
+                }
+            },
+            "CreateOrUpdateQuestionRequestBody": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "quiz_id": {
+                        "type": "number"
+                    }
+                },
+                "example": {
+                    "text": "Apakah ini dapat di itukan?",
+                    "quiz_id": 1
+                }
+            },
+            "Choice": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "text": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "text": "Pilihan A"
+                }
+            },
+            "CreateOrUpdateChoiceRequestBody": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string"
+                    },
+                    "question_id": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "text": "Pilihan A",
+                    "question_id": 1
+                }
+            },
+            "Submission": {
+                "type": "object",
+                "properties": {
+                    "quiz": {
+                        "$ref": "#/components/schemas/Quiz"
+                    },
+                    "grade": {
+                        "type": "number",
+                        "example": 100
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "quizdadakan123"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,8 @@
-package exception
+package controller
 
 import (
 	"net/http"
+	"quizy-api/exception"
 	"quizy-api/helper"
 	"quizy-api/model/web"
 
@@ -41,7 +42,7 @@ func validationError(writer http.ResponseWriter, request *http.Request, err inte
 }
 
 func notFoundError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
-	exception, ok := err.(NotFoundError)
+	exception, ok := err.(exception.NotFoundError)
 	if ok {
 		writer.Header().Add("Content-Type", "application/json")
 		writer.WriteHeader(http.StatusNotFound)

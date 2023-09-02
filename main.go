@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"quizy-api/app"
 	"quizy-api/controller"
-	"quizy-api/exception"
 	"quizy-api/helper"
 	repository "quizy-api/repository/role_repository"
 	service "quizy-api/service/role_service"
@@ -27,7 +26,7 @@ func main() {
 	router.PUT("/api/v1/role/:roleId", roleController.Update)
 	router.DELETE("/api/v1/role/:roleId", roleController.Delete)
 
-	router.PanicHandler = exception.ErrorHandler
+	router.PanicHandler = controller.ErrorHandler
 
 	server := http.Server{
 		Addr:    "localhost:3000",

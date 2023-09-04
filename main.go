@@ -4,11 +4,12 @@ import (
 	"net/http"
 	"quizy-api/app"
 	"quizy-api/controller"
+	"quizy-api/controller/role_controller"
 	"quizy-api/controller/user_controller"
 	"quizy-api/helper"
-	repository "quizy-api/repository/role_repository"
+	"quizy-api/repository/role_repository"
 	"quizy-api/repository/user_repository"
-	service "quizy-api/service/role_service"
+	"quizy-api/service/role_service"
 	"quizy-api/service/user_service"
 
 	"github.com/go-playground/validator/v10"
@@ -19,9 +20,9 @@ import (
 func main() {
 	db := app.NewDB()
 	validate := validator.New()
-	roleRepository := repository.NewRoleRepository()
-	roleService := service.NewRoleService(db, roleRepository, validate)
-	roleController := controller.NewServiceController(roleService)
+	roleRepository := role_repository.NewRoleRepository()
+	roleService := role_service.NewRoleService(db, roleRepository, validate)
+	roleController := role_controller.NewServiceController(roleService)
 
 	userRepository := user_repository.NewUserRepository()
 	userService := user_service.NewUserService(db, userRepository, validate)

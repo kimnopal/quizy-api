@@ -2,12 +2,12 @@ package helper
 
 import (
 	"quizy-api/model/domain"
-	web_role "quizy-api/model/web/role"
+	"quizy-api/model/web/role_dto"
 	"quizy-api/model/web/user_dto"
 )
 
-func ToRoleResponse(role domain.Role) web_role.RoleResponse {
-	return web_role.RoleResponse{
+func ToRoleResponse(role domain.Role) role_dto.RoleResponse {
+	return role_dto.RoleResponse{
 		Id:   role.Id,
 		Name: role.Name,
 	}

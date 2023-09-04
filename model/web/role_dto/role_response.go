@@ -1,4 +1,4 @@
-package web_role
+package role_dto
 
 type RoleResponse struct {
 	Id   int64  `json:"id"`

@@ -1,4 +1,4 @@
-package service
+package role_service
 
 import (
 	"context"
@@ -6,19 +6,19 @@ import (
 	"quizy-api/exception"
 	"quizy-api/helper"
 	"quizy-api/model/domain"
-	web_role "quizy-api/model/web/role"
-	repository "quizy-api/repository/role_repository"
+	"quizy-api/model/web/role_dto"
+	"quizy-api/repository/role_repository"
 
 	"github.com/go-playground/validator/v10"
 )
 
 type RoleServiceImpl struct {
 	DB         *sql.DB
-	repository repository.RoleRepository
+	repository role_repository.RoleRepository
 	validate   *validator.Validate
 }
 
-func NewRoleService(DB *sql.DB, repository repository.RoleRepository, validate *validator.Validate) RoleService {
+func NewRoleService(DB *sql.DB, repository role_repository.RoleRepository, validate *validator.Validate) RoleService {
 	return &RoleServiceImpl{
 		DB:         DB,
 		repository: repository,
@@ -26,7 +26,7 @@ func NewRoleService(DB *sql.DB, repository repository.RoleRepository, validate *
 	}
 }
 
-func (service *RoleServiceImpl) Create(ctx context.Context, request web_role.RoleCreateRequest) web_role.RoleResponse {
+func (service *RoleServiceImpl) Create(ctx context.Context, request role_dto.RoleCreateRequest) role_dto.RoleResponse {
 	err := service.validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -43,7 +43,7 @@ func (service *RoleServiceImpl) Create(ctx context.Context, request web_role.Rol
 	return helper.ToRoleResponse(role)
 }
 
-func (service *RoleServiceImpl) Update(ctx context.Context, request web_role.RoleUpdateRequest) web_role.RoleResponse {
+func (service *RoleServiceImpl) Update(ctx context.Context, request role_dto.RoleUpdateRequest) role_dto.RoleResponse {
 	err := service.validate.Struct(request)
 	helper.PanicIfError(err)
 

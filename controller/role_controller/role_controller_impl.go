@@ -1,22 +1,22 @@
-package controller
+package role_controller
 
 import (
 	"encoding/json"
 	"net/http"
 	"quizy-api/helper"
 	"quizy-api/model/web"
-	web_role "quizy-api/model/web/role"
-	service "quizy-api/service/role_service"
+	"quizy-api/model/web/role_dto"
+	"quizy-api/service/role_service"
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
 )
 
 type RoleControllerImpl struct {
-	service service.RoleService
+	service role_service.RoleService
 }
 
-func NewServiceController(service service.RoleService) RoleController {
+func NewServiceController(service role_service.RoleService) RoleController {
 	return &RoleControllerImpl{
 		service: service,
 	}
@@ -24,7 +24,7 @@ func NewServiceController(service service.RoleService) RoleController {
 
 func (controller *RoleControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	decoder := json.NewDecoder(request.Body)
-	roleCreateRequest := web_role.RoleCreateRequest{}
+	roleCreateRequest := role_dto.RoleCreateRequest{}
 	err := decoder.Decode(&roleCreateRequest)
 	helper.PanicIfError(err)
 
@@ -40,7 +40,7 @@ func (controller *RoleControllerImpl) Create(writer http.ResponseWriter, request
 }
 
 func (controller *RoleControllerImpl) Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
-	roleUpdateRequest := web_role.RoleUpdateRequest{}
+	roleUpdateRequest := role_dto.RoleUpdateRequest{}
 	helper.ReadFromRequestBody(request, &roleUpdateRequest)
 
 	roleId := params.ByName("roleId")

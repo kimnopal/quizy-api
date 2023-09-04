@@ -1,4 +1,4 @@
-package web_role
+package role_dto
 
 type RoleUpdateRequest struct {
 	Id   int64  `validate:"required" json:"id"`
